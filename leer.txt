@@ -1,0 +1,135 @@
+📌 Explicación del Código
+1️⃣ Clases básicas para Personaje, Enemigo, Tienda y Combate.
+2️⃣ Métodos de ataque y defensa con lógica de daño.
+3️⃣ Guardado y carga de datos en localStorage.
+4️⃣ Simulación de combate con un Goblin.
+
+
+📌 ¿Qué falta por implementar?
+🔹 Interfaz gráfica con HTML y CSS.
+🔹 Pantalla de inicio con opciones (Nueva partida, Cargar, Eliminar datos).
+🔹 Menús interactivos para tienda, inventario y combate.
+🔹 IA más avanzada para los enemigos.
+🔹 Sistema de niveles y experiencia.
+
+
+
+
+
+📌 Explicación de cada archivo
+🔹 personaje.js → Contiene la clase Personaje.
+🔹 enemigo.js → Contiene la clase Enemigo.
+🔹 tienda.js → Contiene la clase Tienda con el sistema de compras.
+🔹 combate.js → Contiene la clase Combate y la lógica de batalla.
+🔹 storage.js → Contiene funciones para guardar y cargar datos en localStorage.
+🔹 main.js → Es el punto de entrada del juego, donde se inicializan los personajes, se cargan los datos y se maneja el flujo de la partida.
+
+
+
+
+
+// Archivo: js/personaje.js
+class Personaje {
+    constructor(nombre, vida, ataque, defensa, dinero) {
+        this.nombre = nombre;
+        this.vida = vida;
+        this.ataque = ataque;
+        this.defensa = defensa;
+        this.dinero = dinero;
+        this.experiencia = 0;
+        this.nivel = 1;
+        this.inventario = [];
+        this.armaEquipada = null;
+    }
+
+    atacar(enemigo) {
+        let danioBase = this.ataque;
+        if (this.armaEquipada) {
+            danioBase += this.armaEquipada.ataque;
+        }
+        let danio = Math.max(1, danioBase - enemigo.defensa);
+        enemigo.vida -= danio;
+        console.log(`⚔ ${this.nombre} ataca a ${enemigo.nombre} con ${this.armaEquipada ? this.armaEquipada.nombre : "sus puños"} y causa ${danio} de daño.`);
+        return `⚔ ${this.nombre} ataca a ${enemigo.nombre} con ${this.armaEquipada ? this.armaEquipada.nombre : "sus puños"} y causa ${danio} de daño.`;
+    }
+
+    recibirDanio(danio) {
+        this.vida -= danio;
+        console.log(`💥 ${this.nombre} recibe ${danio} de daño.`);
+        return `💥 ${this.nombre} recibe ${danio} de daño.`;
+    }
+
+    subirNivel() {
+        this.nivel++;
+        this.vida += 10;
+        this.ataque += 2;
+        this.defensa += 1;
+        console.log(`⬆ ${this.nombre} ha subido a nivel ${this.nivel}!`);
+        return `⬆ ${this.nombre} ha subido a nivel ${this.nivel}!`;
+    }
+
+    agregarAlInventario(item) {
+        this.inventario.push(item);
+        console.log(`📦 ${item.nombre} añadido al inventario.`);
+    }
+
+    equiparArma(nombreArma) {
+        let arma = this.inventario.find(item => item.nombre === nombreArma);
+        if (arma) {
+            this.armaEquipada = arma;
+            console.log(`🔪 ${this.nombre} ha equipado ${arma.nombre}.`);
+            alert(`Has equipado ${arma.nombre}.`);
+        } else {
+            alert("No tienes esta arma en tu inventario.");
+        }
+    }
+}
+
+// Archivo: js/main.js
+function mostrarLobby() {
+    document.body.innerHTML = `
+        <h1>Lobby</h1>
+        <p>Personaje: ${jugador.nombre} (Nivel ${jugador.nivel})</p>
+        <p>Vida: ${jugador.vida}</p>
+        <p>Dinero: ${jugador.dinero} monedas</p>
+        <button onclick="mostrarTienda()">Ir a la Tienda</button>
+        <button onclick="iniciarCombate()">Ir a Combate</button>
+        <button onclick="mostrarInventario()">Ver Inventario</button>
+    `;
+}
+
+function mostrarInventario() {
+    let mensaje = "📦 Inventario:\n";
+    if (jugador.inventario.length === 0) {
+        mensaje += "(Vacío)";
+    } else {
+        jugador.inventario.forEach(item => {
+            mensaje += `- ${item.nombre} (+${item.ataque} ATQ)\n`;
+        });
+        mensaje += "\nEscribe el nombre del arma que quieres equipar.";
+    }
+    let seleccion = prompt(mensaje);
+    if (seleccion) {
+        jugador.equiparArma(seleccion);
+    }
+    mostrarLobby();
+}
+
+function iniciarCombate() {
+    let enemigo = new Enemigo("Orco", 60, 12, 5);
+    let combate = new Combate(jugador, enemigo);
+    while (!combate.haTerminado()) {
+        alert(combate.turnoJugador());
+        if (combate.haTerminado()) break;
+        alert(combate.turnoEnemigo());
+    }
+    if (jugador.vida > 0) {
+        alert("¡Has vencido!");
+        jugador.subirNivel();
+        jugador.dinero += 20;
+    } else {
+        alert("Has sido derrotado. Vuelve a intentarlo.");
+    }
+    guardarPartida(jugador);
+    mostrarLobby();
+}

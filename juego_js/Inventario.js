@@ -1,0 +1,28 @@
+function mostrarInventario() {
+    document.body.innerHTML = `
+        <h1>Inventario</h1>
+        <div id="listaInventario"></div>
+        <button onclick="mostrarLobby()">Volver</button>
+    `;
+    const listaInventario = document.getElementById("listaInventario");
+    if (jugador.inventario.length === 0) {
+        listaInventario.innerHTML = "<p>(Vacío)</p>";
+    } else {
+        jugador.inventario.forEach((item, index) => {
+            const botonUsar = document.createElement("button");
+            botonUsar.innerText = `Usar ${item.nombre}`;
+            botonUsar.onclick = () => {
+                if (item.nombre.includes("Poción de Curación")) {
+                    jugador.curar();
+                    jugador.inventario.splice(index, 1);
+                    mostrarInventario();
+                }
+            };
+
+            listaInventario.appendChild(document.createTextNode(`${item.nombre}`));
+            listaInventario.appendChild(document.createElement("br"));
+            listaInventario.appendChild(botonUsar);
+            listaInventario.appendChild(document.createElement("br"));
+        });
+    }
+}
