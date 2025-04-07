@@ -1,7 +1,7 @@
-function guardarPartida() {
+function guardarPartida(jugador) {
     if (jugador) {
-        console.log("📀 Guardando partida...");
-        const datosPersonaje = {
+        console.log("💾 Guardando partida automáticamente...");
+        const datos = {
             nombre: jugador.nombre,
             vida: jugador.vida,
             ataque: jugador.ataque,
@@ -13,19 +13,19 @@ function guardarPartida() {
             armaEquipada: jugador.armaEquipada,
             armaduraEquipada: jugador.armaduraEquipada
         };
-        localStorage.setItem("partida", JSON.stringify(datosPersonaje));
+        localStorage.setItem("partida", JSON.stringify(datos));
         console.log("✅ Partida guardada con éxito.");
     } else {
-        console.warn("⚠ No se pudo guardar la partida: el personaje no está definido.");
+        console.warn("⚠ No se pudo guardar la partida: jugador no definido.");
     }
 }
 
 function cargarPartida() {
-    let data = localStorage.getItem("partida");
+    const data = localStorage.getItem("partida");
     if (data) {
-        console.log("📀 Cargando partida...");
-        let datos = JSON.parse(data);
-        let personajeCargado = new Personaje(
+        console.log("📂 Cargando partida...");
+        const datos = JSON.parse(data);
+        const personajeCargado = new Personaje(
             datos.nombre,
             datos.vida,
             datos.ataque,
@@ -40,7 +40,7 @@ function cargarPartida() {
         console.log("✅ Partida cargada con éxito.");
         return personajeCargado;
     } else {
-        console.warn("⚠ No hay una partida guardada.");
+        console.warn("⚠ No hay partida guardada.");
         return null;
     }
 }

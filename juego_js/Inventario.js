@@ -4,12 +4,12 @@ function mostrarInventario() {
         <div id="listaInventario"></div>
         <button onclick="mostrarLobby()">Volver</button>
     `;
-    const listaInventario = document.getElementById("listaInventario");
+    let listaInventario = document.getElementById("listaInventario");
     if (jugador.inventario.length === 0) {
         listaInventario.innerHTML = "<p>(Vacío)</p>";
     } else {
         jugador.inventario.forEach((item, index) => {
-            const botonUsar = document.createElement("button");
+            let botonUsar = document.createElement("button");
             botonUsar.innerText = `Usar ${item.nombre}`;
             botonUsar.onclick = () => {
                 if (item.nombre.includes("Poción de Curación")) {

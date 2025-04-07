@@ -28,10 +28,11 @@ class Combate {
 }
 
 let enemigoActual;
-let indiceEnemigoActual = 0;
+let zonaActual;
 
-function iniciarCombate(enemigo) {
+function iniciarCombate(enemigo, zona) {
     enemigoActual = enemigo;
+    zonaActual = zona;
     mostrarCampoDeBatalla(enemigoActual);
 }
 
@@ -64,9 +65,17 @@ function realizarAccion(accion) {
                     }
                 } else {
                     alert(`¡Has vencido a ${enemigoActual.nombre}!`);
-                    jugador.ganarExperiencia(10);
+
+                    // Aumentar la experiencia otorgada
+                    const experienciaGanada = 20; // Puedes ajustar este valor
+                    jugador.ganarExperiencia(experienciaGanada);
+
                     jugador.dinero += enemigoActual.recompensa;
                     guardarPartida(jugador);
+
+                    // Eliminar el enemigo derrotado de la lista de enemigos de la zona
+                    zonaActual.enemigos = zonaActual.enemigos.filter(e => e !== enemigoActual);
+
                     mostrarLobby();
                 }
             }, 500);
@@ -102,9 +111,17 @@ function realizarAccion(accion) {
                     }
                 } else {
                     alert(`¡Has vencido a ${enemigoActual.nombre}!`);
-                    jugador.ganarExperiencia(10);
+
+                    // Aumentar la experiencia otorgada
+                    const experienciaGanada = 20; // Puedes ajustar este valor
+                    jugador.ganarExperiencia(experienciaGanada);
+
                     jugador.dinero += enemigoActual.recompensa;
                     guardarPartida(jugador);
+
+                    // Eliminar el enemigo derrotado de la lista de enemigos de la zona
+                    zonaActual.enemigos = zonaActual.enemigos.filter(e => e !== enemigoActual);
+
                     mostrarLobby();
                 }
             }, 500);
@@ -146,7 +163,7 @@ function actualizarExperiencia() {
     const nivelSiguiente = jugador.nivel * 100;
     const progreso = (jugador.experiencia / nivelSiguiente) * 100;
     document.getElementById('experiencia-jugador').style.width = `${progreso}%`;
-    document.querySelector('.personaje .experiencia-texto').innerText = `${jugador.experiencia}/${nivelSiguiente}`;
+    document.querySelector('.personaje .experiencia-texto').innerText = `Experiencia: ${jugador.experiencia}/${nivelSiguiente}`;
 }
 
 function mostrarCampoDeBatalla(enemigo) {
@@ -161,7 +178,7 @@ function mostrarCampoDeBatalla(enemigo) {
                 </div>
                 <div class="experiencia-barra-container">
                     <div class="experiencia-barra" id="experiencia-jugador" style="width: ${(jugador.experiencia / (jugador.nivel * 100)) * 100}%;"></div>
-                    <div class="experiencia-texto">${jugador.experiencia}/${jugador.nivel * 100}</div>
+                    <div class="experiencia-texto">Experiencia: ${jugador.experiencia}/${jugador.nivel * 100}</div>
                 </div>
                 <p class="ataque">Ataque: ${jugador.ataque + (jugador.armaEquipada ? jugador.armaEquipada.ataque : 0)}</p>
                 <p class="defensa">Defensa: ${jugador.defensa + (jugador.armaduraEquipada ? jugador.armaduraEquipada.defensa : 0)}</p>
@@ -186,6 +203,11 @@ function mostrarCampoDeBatalla(enemigo) {
                 ${jugador.inventario.map((item, index) => `
                     <button class="btn-accion" onclick="realizarAccion('usarObjeto_${index}')">Usar ${item.nombre}</button>
                 `).join('')}
+            </div>
+            <div class="explicacion">
+                <p>🌟 Sistema de Experiencia y Niveles 🌟</p>
+                <p>Gana experiencia derrotando enemigos. Cuando alcances los puntos de experiencia necesarios, subirás de nivel.</p>
+                <p>Cada nivel te proporcionará más vida, ataque y defensa.</p>
             </div>
         </div>
     `;

@@ -20,9 +20,9 @@ class Tienda {
                 <button class="btn volver" onclick="mostrarLobby()">Volver</button>
             </div>
         `;
-        const listaTienda = document.getElementById("listaTienda");
+        let listaTienda = document.getElementById("listaTienda");
         this.articulos.forEach((articulo) => {
-            const boton = document.createElement("button");
+            let boton = document.createElement("button");
             boton.className = "btn compra";
             let descripcion = "";
             if (articulo.ataque) {

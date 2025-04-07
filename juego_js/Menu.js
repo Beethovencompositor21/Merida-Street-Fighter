@@ -11,7 +11,7 @@ function nuevaPartida() {
     const nombre = prompt("Introduce el nombre de tu personaje:");
     if (nombre) {
         jugador = new Personaje(nombre, 100, 10, 5, 20);
-        guardarPartida();
+        guardarPartida(jugador);
         alert(`¡Bienvenido, ${nombre}! Tu aventura comienza.`);
         mostrarLobby();
     } else {
