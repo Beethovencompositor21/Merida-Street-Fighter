@@ -26,39 +26,12 @@ class Combate {
 
     eventoAleatorio() {
         const eventos = [
-            () => {
-                console.log("🌧️ ¡Una lluvia repentina reduce la visibilidad!");
-                this.personaje.ataque -= 2;
-                this.enemigo.defensa += 2;
-                alert("🌧️ ¡Una lluvia repentina reduce la visibilidad! Tu ataque disminuye y la defensa del enemigo aumenta.");
-            },
-            () => {
-                console.log("🌪️ ¡Un viento fuerte sopla a través del campo de batalla!");
-                this.personaje.defensa -= 2;
-                this.enemigo.ataque += 2;
-                alert("🌪️ ¡Un viento fuerte sopla a través del campo de batalla! Tu defensa disminuye y el ataque del enemigo aumenta.");
-            },
-            () => {
-                console.log("🌩️ ¡Un rayo cae cerca, iluminando todo!");
-                this.personaje.ataque += 3;
-                this.enemigo.defensa -= 3;
-                alert("🌩️ ¡Un rayo cae cerca, iluminando todo! Tu ataque aumenta y la defensa del enemigo disminuye.");
-            },
-            () => {
-                console.log("🌟 ¡Una estrella fugaz cruza el cielo, dando suerte al personaje!");
-                this.personaje.vida += 10;
-                alert("🌟 ¡Una estrella fugaz cruza el cielo, dando suerte al personaje! Tu vida aumenta.");
-            },
-            () => {
-                console.log("🌋 ¡El suelo tiembla y se abre una grieta!");
-                this.enemigo.vida -= 10;
-                alert("🌋 ¡El suelo tiembla y se abre una grieta! La vida del enemigo disminuye.");
-            },
-            () => {
-                console.log("🌀 ¡Un remolino aparece y confunde al enemigo!");
-                this.enemigo.ataque -= 3;
-                alert("🌀 ¡Un remolino aparece y confunde al enemigo! El ataque del enemigo disminuye.");
-            }
+            () => this.aplicarEvento("🌧️ ¡Una lluvia repentina reduce la visibilidad!", -2, 2),
+            () => this.aplicarEvento("🌪️ ¡Un viento fuerte sopla a través del campo de batalla!", -2, 2),
+            () => this.aplicarEvento("🌩️ ¡Un rayo cae cerca, iluminando todo!", 3, -3),
+            () => this.aplicarEvento("🌟 ¡Una estrella fugaz cruza el cielo, dando suerte al personaje!", 10, 0),
+            () => this.aplicarEvento("🌋 ¡El suelo tiembla y se abre una grieta!", -10, 0),
+            () => this.aplicarEvento("🌀 ¡Un remolino aparece y confunde al enemigo!", 0, -3)
         ];
         try {
             const evento = eventos[Math.floor(Math.random() * eventos.length)];
@@ -67,6 +40,13 @@ class Combate {
         } catch (error) {
             console.error("Error al ejecutar el evento aleatorio:", error);
         }
+    }
+
+    aplicarEvento(mensaje, modificadorAtaque, modificadorDefensa) {
+        console.log(mensaje);
+        alert(mensaje);
+        this.personaje.ataque += modificadorAtaque;
+        this.enemigo.defensa += modificadorDefensa;
     }
 }
 
@@ -94,7 +74,7 @@ function realizarAccion(accion) {
             enemigoActual.atacar(jugador);
             actualizarVida();
             if (jugador.vida <= 0) {
-                alert("¡Has sido derrotado......AL HOYO 🕳️");
+                alert("¡Has sido derrotado... AL HOYO 🕳️");
                 mostrarMenuPrincipal();
             }
             return;
@@ -102,34 +82,7 @@ function realizarAccion(accion) {
 
         switch (accion) {
             case 'atacar':
-                alert(jugador.atacar(enemigoActual));
-                document.body.classList.add('shake');
-                setTimeout(() => {
-                    document.body.classList.remove('shake');
-                    actualizarVida();
-                    if (enemigoActual.vida > 0) {
-                        alert(enemigoActual.atacar(jugador));
-                        actualizarVida();
-                        if (jugador.vida <= 0) {
-                            alert("¡Has sido derrotado!");
-                            mostrarMenuPrincipal();
-                        }
-                    } else {
-                        alert(`¡Has vencido a ${enemigoActual.nombre}!`);
-                        const experienciaGanada = 20;
-                        jugador.ganarExperiencia(experienciaGanada);
-                        actualizarExperiencia();
-                        jugador.dinero += enemigoActual.recompensa;
-                        guardarPartida(jugador);
-
-                        // Eliminar el enemigo derrotado de la lista de enemigos de la zona
-                        if (zonaActual && zonaActual.enemigos) {
-                            zonaActual.enemigos = zonaActual.enemigos.filter(e => e !== enemigoActual);
-                        }
-
-                        mostrarLobby(); // Volver al lobby después de derrotar al enemigo
-                    }
-                }, 500);
+                ejecutarAccionDeAtaque();
                 break;
             case 'defender':
                 alert(jugador.defender());
@@ -144,54 +97,11 @@ function realizarAccion(accion) {
                 actualizarVida();
                 break;
             case 'Ataque Fuerte':
-                alert(jugador.ataqueFuerte(enemigoActual));
-                document.body.classList.add('shake');
-                setTimeout(() => {
-                    document.body.classList.remove('shake');
-                    actualizarVida();
-                    if (enemigoActual.vida > 0) {
-                        alert(enemigoActual.atacar(jugador));
-                        actualizarVida();
-                        if (jugador.vida > 0) {
-                            alert(enemigoActual.atacar(jugador));
-                            actualizarVida();
-                            if (jugador.vida <= 0) {
-                                alert("¡Has sido derrotado!");
-                                mostrarMenuPrincipal();
-                            }
-                        }
-                    } else {
-                        alert(`¡Has vencido a ${enemigoActual.nombre}!`);
-                        const experienciaGanada = 20;
-                        jugador.ganarExperiencia(experienciaGanada);
-                        actualizarExperiencia();
-                        jugador.dinero += enemigoActual.recompensa;
-                        guardarPartida(jugador);
-
-                        // Eliminar el enemigo derrotado de la lista de enemigos de la zona
-                        if (zonaActual && zonaActual.enemigos) {
-                            zonaActual.enemigos = zonaActual.enemigos.filter(e => e !== enemigoActual);
-                        }
-
-                        mostrarLobby(); // Volver al lobby después de derrotar al enemigo
-                    }
-                }, 500);
+                ejecutarAccionDeAtaqueFuerte();
                 break;
             default:
                 if (accion.startsWith('usarObjeto_')) {
-                    const index = parseInt(accion.split('_')[1]);
-                    const objeto = jugador.inventario[index];
-                    alert(jugador.usarObjeto(objeto));
-                    if (objeto.ataque) {
-                        jugador.ataque += objeto.ataque;
-                        document.querySelector('.personaje .ataque').innerText = `Ataque: ${jugador.ataque + (jugador.armaEquipada ? jugador.armaEquipada.ataque : 0)}`;
-                    } else if (objeto.defensa) {
-                        jugador.defensa += objeto.defensa;
-                        document.querySelector('.personaje .defensa').innerText = `Defensa: ${jugador.defensa + (jugador.armaduraEquipada ? jugador.armaduraEquipada.defensa : 0)}`;
-                    }
-                    jugador.inventario.splice(index, 1);
-                    actualizarVida();
-                    mostrarCampoDeBatalla(enemigoActual);
+                    usarObjeto(accion);
                 }
                 break;
         }
@@ -203,6 +113,79 @@ function realizarAccion(accion) {
     } catch (error) {
         console.error("Error al realizar la acción:", error);
     }
+}
+
+function ejecutarAccionDeAtaque() {
+    alert(jugador.atacar(enemigoActual));
+    document.body.classList.add('shake');
+    setTimeout(() => {
+        document.body.classList.remove('shake');
+        actualizarVida();
+        if (enemigoActual.vida > 0) {
+            alert(enemigoActual.atacar(jugador));
+            actualizarVida();
+            if (jugador.vida <= 0) {
+                alert("¡Has sido derrotado!");
+                mostrarMenuPrincipal();
+            }
+        } else {
+            finalizarCombate();
+        }
+    }, 500);
+}
+
+function ejecutarAccionDeAtaqueFuerte() {
+    alert(jugador.ataqueFuerte(enemigoActual));
+    document.body.classList.add('shake');
+    setTimeout(() => {
+        document.body.classList.remove('shake');
+        actualizarVida();
+        if (enemigoActual.vida > 0) {
+            alert(enemigoActual.atacar(jugador));
+            actualizarVida();
+            if (jugador.vida > 0) {
+                alert(enemigoActual.atacar(jugador));
+                actualizarVida();
+                if (jugador.vida <= 0) {
+                    alert("¡Has sido derrotado!");
+                    mostrarMenuPrincipal();
+                }
+            }
+        } else {
+            finalizarCombate();
+        }
+    }, 500);
+}
+
+function usarObjeto(accion) {
+    const index = parseInt(accion.split('_')[1]);
+    const objeto = jugador.inventario[index];
+    alert(jugador.usarObjeto(objeto));
+    if (objeto.ataque) {
+        jugador.ataque += objeto.ataque;
+        document.querySelector('.personaje .ataque').innerText = `Ataque: ${jugador.ataque + (jugador.armaEquipada ? jugador.armaEquipada.ataque : 0)}`;
+    } else if (objeto.defensa) {
+        jugador.defensa += objeto.defensa;
+        document.querySelector('.personaje .defensa').innerText = `Defensa: ${jugador.defensa + (jugador.armaduraEquipada ? jugador.armaduraEquipada.defensa : 0)}`;
+    }
+    jugador.inventario.splice(index, 1);
+    actualizarVida();
+    mostrarCampoDeBatalla(enemigoActual);
+}
+
+function finalizarCombate() {
+    const experienciaGanada = 20;
+    jugador.ganarExperiencia(experienciaGanada);
+    actualizarExperiencia();
+    jugador.dinero += enemigoActual.recompensa;
+    guardarPartida(jugador);
+
+    if (zonaActual && zonaActual.enemigos) {
+        zonaActual.enemigos = zonaActual.enemigos.filter(e => e !== enemigoActual);
+    }
+
+    alert(`¡Has vencido a ${enemigoActual.nombre}!`);
+    mostrarLobby();
 }
 
 function actualizarVida() {

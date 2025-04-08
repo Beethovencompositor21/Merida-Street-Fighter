@@ -12,6 +12,8 @@ class Personaje {
         this.armaEquipada = null;
         this.armaduraEquipada = null;
         this.descanso = false;
+        this.escudoTemporal = 0; // Nuevo atributo para el escudo temporal
+        this.contraataque = false; // Nuevo atributo para el contraataque
     }
 
     atacar(enemigo) {
@@ -39,11 +41,12 @@ class Personaje {
             enemigo.vida -= danio;
             console.log(`⚡ ${this.nombre} usa Ataque Fuerte y causa ${danio} de daño a ${enemigo.nombre}.`);
 
+            // Segundo golpe
             danio = Math.max(1, this.ataque - enemigo.defensa);
             enemigo.vida -= danio;
             console.log(`⚡ ${this.nombre} golpea de nuevo y causa ${danio} de daño a ${enemigo.nombre}.`);
 
-            this.descanso = true;
+            this.descanso = true; // El jugador entra en estado de descanso
 
             return `⚡ ${this.nombre} usa Ataque Fuerte y causa ${danio} de daño a ${enemigo.nombre}. ¡Y golpea de nuevo!`;
         } catch (error) {
@@ -54,10 +57,30 @@ class Personaje {
     defender() {
         try {
             this.defensa += 5;
-            console.log(`🛡️ ${this.nombre} se defiende y reduce el daño recibido en el próximo turno.`);
-            return `🛡️ ${this.nombre} se defiende y reduce el daño recibido en el próximo turno.`;
+            this.escudoTemporal = 10; // Añadir un escudo temporal que absorbe 10 puntos de daño
+            this.contraataque = true; // Activar el contraataque
+            console.log(`🛡️ ${this.nombre} se defiende y reduce el daño recibido en el próximo turno. ¡Escudo temporal activado!`);
+            return `🛡️ ${this.nombre} se defiende y reduce el daño recibido en el próximo turno. ¡Escudo temporal activado!`;
         } catch (error) {
             console.error("Error en el método defender del personaje:", error);
+        }
+    }
+
+    contraataque(enemigo) {
+        try {
+            if (this.contraataque) {
+                let danioBase = this.ataque;
+                if (this.armaEquipada) {
+                    danioBase += this.armaEquipada.ataque;
+                }
+                let danio = Math.max(1, danioBase - enemigo.defensa);
+                enemigo.vida -= danio;
+                console.log(`🌀 ${this.nombre} realiza un contraataque y causa ${danio} de daño a ${enemigo.nombre}.`);
+                this.contraataque = false; // Desactivar el contraataque después de usarlo
+                return `🌀 ${this.nombre} realiza un contraataque y causa ${danio} de daño a ${enemigo.nombre}.`;
+            }
+        } catch (error) {
+            console.error("Error en el método contraataque del personaje:", error);
         }
     }
 
@@ -66,7 +89,7 @@ class Personaje {
             if (objeto.nombre.includes("Poción de Curación")) {
                 this.vida += 20;
                 if (this.vida > this.vidaMaxima) {
-                    this.vida = this.vidaMaxima;
+                    this.vida = this.vidaMaxima; // Asegura que la vida no exceda la vida máxima
                 }
                 console.log(`❤️ ${this.nombre} usa ${objeto.nombre} y recupera 20 puntos de vida.`);
                 return `❤️ ${this.nombre} usa ${objeto.nombre} y recupera 20 puntos de vida.`;
@@ -88,7 +111,7 @@ class Personaje {
         try {
             this.vida += 20;
             if (this.vida > this.vidaMaxima) {
-                this.vida = this.vidaMaxima;
+                this.vida = this.vidaMaxima; // Asegura que la vida no exceda la vida máxima
             }
             console.log(`❤️ ${this.nombre} se cura y recupera 20 puntos de vida.`);
             return `❤️ ${this.nombre} se cura y recupera 20 puntos de vida.`;
@@ -99,9 +122,15 @@ class Personaje {
 
     recibirDanio(danio) {
         try {
+            if (this.escudoTemporal > 0) {
+                const danioAbsorbido = Math.min(danio, this.escudoTemporal);
+                this.escudoTemporal -= danioAbsorbido;
+                danio -= danioAbsorbido;
+                console.log(`🛡️ Escudo temporal absorbe ${danioAbsorbido} de daño.`);
+            }
             if (this.defendiendo) {
-                danio = Math.max(1, danio / 2);
-                this.defendiendo = false;
+                danio = Math.max(1, danio / 2); // Reduce el daño a la mitad si el jugador está defendiendo
+                this.defendiendo = false; // Reinicia el estado de defensa
             }
             this.vida -= danio;
             console.log(`💥 ${this.nombre} recibe ${danio} de daño.`);
@@ -122,6 +151,19 @@ class Personaje {
             return `⬆ ${this.nombre} ha subido a nivel ${this.nivel}!`;
         } catch (error) {
             console.error("Error en el método subirNivel del personaje:", error);
+        }
+    }
+
+    ganarExperiencia(cantidad) {
+        try {
+            this.experiencia += cantidad;
+            console.log(`🌟 ${this.nombre} ha ganado ${cantidad} puntos de experiencia.`);
+            if (this.experiencia >= 100) {
+                this.experiencia -= 100;
+                this.subirNivel();
+            }
+        } catch (error) {
+            console.error("Error en el método ganarExperiencia del personaje:", error);
         }
     }
 
@@ -165,19 +207,6 @@ class Personaje {
             }
         } catch (error) {
             console.error("Error en el método equiparArmadura del personaje:", error);
-        }
-    }
-
-    ganarExperiencia(cantidad) {
-        try {
-            this.experiencia += cantidad;
-            console.log(`🌟 ${this.nombre} ha ganado ${cantidad} puntos de experiencia.`);
-            if (this.experiencia >= 100) {
-                this.experiencia -= 100;
-                this.subirNivel();
-            }
-        } catch (error) {
-            console.error("Error en el método ganarExperiencia del personaje:", error);
         }
     }
 }
