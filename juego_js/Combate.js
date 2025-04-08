@@ -75,6 +75,9 @@ let zonaActual;
 
 function iniciarCombate(enemigo, zona) {
     try {
+        if (!zona || !zona.enemigos) {
+            throw new Error("La zona o la lista de enemigos no está definida.");
+        }
         enemigoActual = enemigo;
         zonaActual = zona;
         mostrarCampoDeBatalla(enemigoActual);
@@ -118,8 +121,13 @@ function realizarAccion(accion) {
                         actualizarExperiencia();
                         jugador.dinero += enemigoActual.recompensa;
                         guardarPartida(jugador);
-                        zonaActual.enemigos = zonaActual.enemigos.filter(e => e !== enemigoActual);
-                        mostrarLobby();
+
+                        // Eliminar el enemigo derrotado de la lista de enemigos de la zona
+                        if (zonaActual && zonaActual.enemigos) {
+                            zonaActual.enemigos = zonaActual.enemigos.filter(e => e !== enemigoActual);
+                        }
+
+                        mostrarLobby(); // Volver al lobby después de derrotar al enemigo
                     }
                 }, 500);
                 break;
@@ -159,8 +167,13 @@ function realizarAccion(accion) {
                         actualizarExperiencia();
                         jugador.dinero += enemigoActual.recompensa;
                         guardarPartida(jugador);
-                        zonaActual.enemigos = zonaActual.enemigos.filter(e => e !== enemigoActual);
-                        mostrarLobby();
+
+                        // Eliminar el enemigo derrotado de la lista de enemigos de la zona
+                        if (zonaActual && zonaActual.enemigos) {
+                            zonaActual.enemigos = zonaActual.enemigos.filter(e => e !== enemigoActual);
+                        }
+
+                        mostrarLobby(); // Volver al lobby después de derrotar al enemigo
                     }
                 }, 500);
                 break;
