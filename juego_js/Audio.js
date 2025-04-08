@@ -1,44 +1,39 @@
 class AudioManager {
     constructor() {
-        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        this.musicaFondo = document.getElementById('musica-fondo');
-        this.musicaFondo.volume = 0.5; // Ajustar el volumen
-        this.sonidoClic = document.getElementById('sonido-clic');
-        this.sonidoClic.volume = 0.5; // Ajustar el volumen
+        try {
+            this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            this.musicaFondo = document.getElementById('musica-fondo');
+            this.musicaFondo.volume = 0.4; // Ajustar el volumen
+        } catch (error) {
+            console.error("Error al inicializar el AudioManager:", error);
+        }
     }
 
     reproducirMusica() {
-        this.musicaFondo.play().catch(error => {
-            console.error("Error al reproducir la música:", error);
-        });
+        try {
+            this.musicaFondo.play().catch(error => {
+                console.error("Error al reproducir la música:", error);
+            });
+        } catch (error) {
+            console.error("Error en la función reproducirMusica:", error);
+        }
     }
 
     pausarMusica() {
-        this.musicaFondo.pause();
-    }
-
-    reproducirSonidoClic() {
-        this.sonidoClic.currentTime = 0; // Reiniciar el sonido
-        this.sonidoClic.play().catch(error => {
-            console.error("Error al reproducir el sonido de clic:", error);
-        });
+        try {
+            this.musicaFondo.pause();
+        } catch (error) {
+            console.error("Error en la función pausarMusica:", error);
+        }
     }
 }
 
 const audioManager = new AudioManager();
+const audioClick = new Audio("Click.mp3");
 
-// Reproducir música de fondo después de una interacción del usuario
 document.addEventListener('DOMContentLoaded', () => {
     document.body.addEventListener('click', function() {
         audioManager.reproducirMusica();
-        // Remover el evento después de la primera interacción
         document.body.removeEventListener('click', arguments.callee);
-    });
-
-    // Añadir el sonido de clic a todos los botones
-    document.querySelectorAll('button').forEach(button => {
-        button.addEventListener('click', () => {
-            audioManager.reproducirSonidoClic();
-        });
     });
 });

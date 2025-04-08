@@ -14,21 +14,29 @@ const zonas = [
 ];
 
 function explorarZona(zona) {
-    alert(`Estás explorando el ${zona.nombre}. ${zona.descripcion}`);
-    const enemigo = zona.enemigos[Math.floor(Math.random() * zona.enemigos.length)];
-    alert(`Te encuentras con un ${enemigo.nombre}!`);
-    iniciarCombate(enemigo, zona);
+    try {
+        alert(`Estás explorando el ${zona.nombre}. ${zona.descripcion}`);
+        const enemigo = zona.enemigos[Math.floor(Math.random() * zona.enemigos.length)];
+        alert(`Te encuentras con un ${enemigo.nombre}!`);
+        iniciarCombate(enemigo, zona);
+    } catch (error) {
+        console.error("Error al explorar la zona:", error);
+    }
 }
 
 function mostrarMapa() {
-    let mensaje = "Elige una zona para explorar:\n";
-    zonas.forEach((zona, index) => {
-        mensaje += `${index + 1}. ${zona.nombre}\n`;
-    });
-    const eleccion = prompt(mensaje);
-    if (eleccion >= 1 && eleccion <= zonas.length) {
-        explorarZona(zonas[eleccion - 1]);
-    } else {
-        alert("Selección inválida.");
+    try {
+        let mensaje = "Elige una zona para explorar:\n";
+        zonas.forEach((zona, index) => {
+            mensaje += `${index + 1}. ${zona.nombre}\n`;
+        });
+        const eleccion = prompt(mensaje);
+        if (eleccion >= 1 && eleccion <= zonas.length) {
+            explorarZona(zonas[eleccion - 1]);
+        } else {
+            alert("Selección inválida.");
+        }
+    } catch (error) {
+        console.error("Error al mostrar el mapa:", error);
     }
 }

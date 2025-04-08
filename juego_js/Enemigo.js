@@ -10,25 +10,33 @@ class Enemigo {
     }
 
     atacar(personaje) {
-        let danio = Math.max(1, this.ataque - personaje.defensa);
-        personaje.vida -= danio;
-        console.log(`⚔ ${this.nombre} ataca a ${personaje.nombre} y causa ${danio} de daño.`);
-        return `⚔ ${this.nombre} ataca a ${personaje.nombre} y causa ${danio} de daño.`;
+        try {
+            let danio = Math.max(1, this.ataque - personaje.defensa);
+            personaje.vida -= danio;
+            console.log(`⚔ ${this.nombre} ataca a ${personaje.nombre} y causa ${danio} de daño.`);
+            return `⚔ ${this.nombre} ataca a ${personaje.nombre} y causa ${danio} de daño.`;
+        } catch (error) {
+            console.error("Error en el método atacar del enemigo:", error);
+        }
     }
 
     usarHabilidadEspecial(personaje) {
-        if (this.habilidadEspecial) {
-            this.habilidadEspecial(personaje);
+        try {
+            if (this.habilidadEspecial) {
+                this.habilidadEspecial(personaje);
+            }
+        } catch (error) {
+            console.error("Error al usar la habilidad especial del enemigo:", error);
         }
     }
 }
 
 const enemigosDisponibles = [
-    new Enemigo("🧙‍♂️ Goblin", 40, 8, 2, 10, (personaje) => {
+    new Enemigo("🧟 Goblin", 40, 8, 2, 10, (personaje) => {
         personaje.vida -= 10;
         console.log(`🐺 ${this.nombre} usa Garra Salvaje y causa 10 de daño a ${personaje.nombre}.`);
     }),
-    new Enemigo("🧌 Orco", 60, 12, 5, 20, (personaje) => {
+    new Enemigo("👤 Orco", 60, 12, 5, 20, (personaje) => {
         personaje.vida -= 15;
         console.log(`💥 ${this.nombre} usa Golpe Brutal y causa 15 de daño a ${personaje.nombre}.`);
     }),
@@ -40,7 +48,7 @@ const enemigosDisponibles = [
         personaje.vida -= 8;
         console.log(`💀 ${this.nombre} usa Golpe Fantasmal y causa 8 de daño a ${personaje.nombre}.`);
     }),
-    new Enemigo("🧌 Troll", 70, 15, 6, 30, (personaje) => {
+    new Enemigo(" Troll", 70, 15, 6, 30, (personaje) => {
         personaje.vida -= 20;
         console.log(`🌱 ${this.nombre} usa Golpe de Roca y causa 20 de daño a ${personaje.nombre}.`);
     }),

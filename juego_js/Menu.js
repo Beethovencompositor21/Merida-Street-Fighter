@@ -1,38 +1,47 @@
 function mostrarMenuPrincipal() {
-    document.body.innerHTML = `
-        <h1>🎮 Merida Street Fighter</h1>
-        <button onclick="nuevaPartida()">Nueva Partida</button>
-        <button onclick="continuarPartida()">Cargar Partida</button>
-        <button onclick="eliminarDatos()">Eliminar Datos</button>
-    `;
+    try {
+        document.body.innerHTML = `
+            <h1>🎮 Merida Street Fighter</h1>
+            <button onclick="nuevaPartida()">Nueva Partida</button>
+            <button onclick="continuarPartida()">Cargar Partida</button>
+            <button onclick="eliminarDatos()">Eliminar Datos</button>
+            <button onclick="creadorPersonaje.mostrarCreador()">Crear Personaje</button>
+        `;
+    } catch (error) {
+        console.error("Error al mostrar el menú principal:", error);
+    }
 }
 
 function nuevaPartida() {
-    const nombre = prompt("Introduce el nombre de tu personaje:");
-    if (nombre) {
-        jugador = new Personaje(nombre, 100, 10, 5, 20);
-        guardarPartida(jugador);
-        alert(`¡Bienvenido, ${nombre}! Tu aventura comienza.`);
-        mostrarLobby();
-    } else {
-        alert("⚠ Debes introducir un nombre válido.");
+    try {
+        creadorPersonaje.mostrarCreador();
+    } catch (error) {
+        console.error("Error al iniciar una nueva partida:", error);
     }
 }
 
 function continuarPartida() {
-    const personajeCargado = cargarPartida();
-    if (personajeCargado) {
-        jugador = personajeCargado;
-        alert(`Bienvenido de nuevo, ${jugador.nombre}!`);
-        mostrarLobby();
-    } else {
-        alert("⚠ No hay una partida guardada.");
+    try {
+        const personajeCargado = cargarPartida();
+        if (personajeCargado) {
+            jugador = personajeCargado;
+            alert(`Bienvenido de nuevo, ${jugador.nombre}!`);
+            mostrarLobby();
+        } else {
+            alert("⚠ No hay una partida guardada.");
+        }
+    } catch (error) {
+        console.error("Error al cargar la partida:", error);
     }
 }
 
 function eliminarDatos() {
-    localStorage.removeItem("partida");
-    console.log("🗑 Eliminando partida...");
-    alert("Partida eliminada.");
-    mostrarMenuPrincipal();
+    try {
+        localStorage.removeItem("partida");
+        console.log("🗑 Eliminando partida...");
+        alert("Partida eliminada.");
+        mostrarMenuPrincipal();
+    } catch (error) {
+        console.error("Error al eliminar los datos:", error);
+    }
 }

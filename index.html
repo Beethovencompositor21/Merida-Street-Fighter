@@ -18,22 +18,17 @@
     <script src="juego_js/Personaje.js" defer></script>
     <script src="juego_js/Storage.js" defer></script>
     <script src="juego_js/Tienda.js" defer></script>
+    <script src="juego_js/CreadorPersonaje.js" defer></script>
 </head>
 <body>
     <div id="pantalla-principal">
         <h1>Merida Street Fighter</h1>
-        <button onclick="nuevaPartida()">Nueva Partida</button>
-        <button onclick="continuarPartida()">Cargar Partida</button>
-        <button onclick="eliminarDatos()">Eliminar Datos</button>
+        <button class="btn btn-nueva-partida" onclick="nuevaPartida()">Nueva Partida</button>
+        <button class="btn btn-cargar-partida" onclick="continuarPartida()">Cargar Partida</button>
+        <button class="btn btn-eliminar-datos" onclick="eliminarDatos()">Eliminar Datos</button>
     </div>
-    <!-- Añadir el elemento de audio para la música de fondo -->
     <audio id="musica-fondo" loop>
-        <source src="musica/fondo.mp3" type="audio/mp3">
-        Tu navegador no soporta el elemento de audio.
-    </audio>
-    <!-- Añadir el elemento de audio para el sonido de clic -->
-    <audio id="sonido-clic">
-        <source src="Click.mp3" type="audio/mp3">
+        <source src="lobby.mp3" type="audio/mp3">
         Tu navegador no soporta el elemento de audio.
     </audio>
 </body>
