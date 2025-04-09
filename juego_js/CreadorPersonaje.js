@@ -179,9 +179,9 @@ class CreadorPersonaje {
     actualizarEstadisticas() {
         try {
             document.querySelector('label[for="estadisticas"]').innerText = `Estadísticas (Puntos disponibles: ${this.estadisticas.puntosDisponibles}) (tras elegir personaje)`;
-            document.querySelector('.stat-container div:nth-child(1) label').innerText = `Vida: ${this.estadisticas.vida}`;
-            document.querySelector('.stat-container div:nth-child(2) label').innerText = `Ataque: ${this.estadisticas.ataque}`;
-            document.querySelector('.stat-container div:nth-child(3) label').innerText = `Defensa: ${this.estadisticas.defensa}`;
+            document.querySelector('.stat-container div:nth-child(1) label').innerText = `Vida(5): ${this.estadisticas.vida}`;
+            document.querySelector('.stat-container div:nth-child(2) label').innerText = `Ataque(1): ${this.estadisticas.ataque}`;
+            document.querySelector('.stat-container div:nth-child(3) label').innerText = `Defensa(1): ${this.estadisticas.defensa}`;
         } catch (error) {
             console.error("Error al actualizar las estadísticas:", error);
         }

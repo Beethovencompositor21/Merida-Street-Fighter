@@ -10,7 +10,7 @@ function mostrarLobby() {
                 <p class="info">❤️ Vida: ${jugador.vida} ❤️</p>
                 <p class="info">💰 Dinero: ${jugador.dinero} monedas 💰</p>
                 <p class="info">🧠 Experiencia: ${jugador.experiencia} / ${nivelSiguiente}</p>
-                <p class="info">🧠 Experiencia necesaria para el próximo nivel: ${experienciaNecesaria}🧠</p>
+             
                 <div class="botones">
                     <button class="btn" onclick="tienda.mostrarTienda()">🛍️ Ir a la Tienda 🛍️</button>
                     <button class="btn" onclick="mostrarMapa()">🌍 Explorar Mapa 🌍</button>

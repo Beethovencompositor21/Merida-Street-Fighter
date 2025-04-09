@@ -66,24 +66,6 @@ class Personaje {
         }
     }
 
-    contraataque(enemigo) {
-        try {
-            if (this.contraataque) {
-                let danioBase = this.ataque;
-                if (this.armaEquipada) {
-                    danioBase += this.armaEquipada.ataque;
-                }
-                let danio = Math.max(1, danioBase - enemigo.defensa);
-                enemigo.vida -= danio;
-                console.log(`🌀 ${this.nombre} realiza un contraataque y causa ${danio} de daño a ${enemigo.nombre}.`);
-                this.contraataque = false; // Desactivar el contraataque después de usarlo
-                return `🌀 ${this.nombre} realiza un contraataque y causa ${danio} de daño a ${enemigo.nombre}.`;
-            }
-        } catch (error) {
-            console.error("Error en el método contraataque del personaje:", error);
-        }
-    }
-
     usarObjeto(objeto) {
         try {
             if (objeto.nombre.includes("Poción de Curación")) {
@@ -207,6 +189,24 @@ class Personaje {
             }
         } catch (error) {
             console.error("Error en el método equiparArmadura del personaje:", error);
+        }
+    }
+
+    contraataque(enemigo) {
+        try {
+            if (this.contraataque) {
+                let danioBase = this.ataque;
+                if (this.armaEquipada) {
+                    danioBase += this.armaEquipada.ataque;
+                }
+                let danio = Math.max(1, danioBase - enemigo.defensa);
+                enemigo.vida -= danio;
+                console.log(`🌀 ${this.nombre} realiza un contraataque y causa ${danio} de daño a ${enemigo.nombre}.`);
+                this.contraataque = false; // Desactivar el contraataque después de usarlo
+                return `🌀 ${this.nombre} realiza un contraataque y causa ${danio} de daño a ${enemigo.nombre}.`;
+            }
+        } catch (error) {
+            console.error("Error en el método contraataque del personaje:", error);
         }
     }
 }
