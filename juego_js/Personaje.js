@@ -77,11 +77,11 @@ class Personaje {
                 console.log(`❤️ ${this.nombre} usa ${objeto.nombre} y recupera 20 puntos de vida.`);
                 return `❤️ ${this.nombre} usa ${objeto.nombre} y recupera 20 puntos de vida.`;
             } else if (objeto.ataque) {
-                this.equiparArma(objeto.nombre);
+                this.equiparArma(objeto);
                 console.log(`🔪 ${this.nombre} equipa ${objeto.nombre} y aumenta su ataque.`);
                 return `🔪 ${this.nombre} equipa ${objeto.nombre} y aumenta su ataque.`;
             } else if (objeto.defensa) {
-                this.equiparArmadura(objeto.nombre);
+                this.equiparArmadura(objeto);
                 console.log(`🛡️ ${this.nombre} equipa ${objeto.nombre} y aumenta su defensa.`);
                 return `🛡️ ${this.nombre} equipa ${objeto.nombre} y aumenta su defensa.`;
             }
@@ -163,21 +163,15 @@ class Personaje {
         }
     }
 
-    equiparArma(nombreArma) {
+    equiparArma(arma) {
         try {
-            const armasDisponibles = {
-                Espada: { nombre: "Espada", ataque: 5 },
-                Arco: { nombre: "Arco", ataque: 7 },
-                Hacha: { nombre: "Hacha", ataque: 6 }
-            };
-
-            if (armasDisponibles[nombreArma]) {
+            if (arma && arma.ataque !== undefined) {
                 // Si hay un arma equipada, devuélvela al inventario
                 if (this.armaEquipada) {
                     this.agregarAlInventario(this.armaEquipada);
                 }
 
-                this.armaEquipada = armasDisponibles[nombreArma];
+                this.armaEquipada = arma;
                 console.log(`🔪 ${this.nombre} ha equipado ${this.armaEquipada.nombre}.`);
                 alert(`Has equipado ${this.armaEquipada.nombre}.`);
             } else {
@@ -188,15 +182,14 @@ class Personaje {
         }
     }
 
-    equiparArmadura(nombreArmadura) {
+    equiparArmadura(armadura) {
         try {
-            let armadura = this.inventario.find(item => item.nombre === nombreArmadura);
-            if (armadura) {
+            if (armadura && armadura.defensa !== undefined) {
                 this.armaduraEquipada = armadura;
                 console.log(`🛡️ ${this.nombre} ha equipado ${armadura.nombre}.`);
                 alert(`Has equipado ${armadura.nombre}.`);
             } else {
-                alert("No tienes esta armadura en tu inventario.");
+                alert("Armadura no disponible.");
             }
         } catch (error) {
             console.error("Error en el método equiparArmadura del personaje:", error);

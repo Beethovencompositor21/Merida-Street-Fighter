@@ -69,7 +69,9 @@ class CreadorPersonaje {
                         <option value="Hacha">Hacha</option>
                     </select>
 
-                    <button class="btn-crear" onclick="creadorPersonaje.crearPersonaje()">Crear Personaje</button>
+                    <button class="btn-crear" onclick="creadorPersonaje.crearPersonaje()">
+                        <img src="iconos/crear.png" alt="Crear Personaje" width="20"> Crear Personaje
+                    </button>
                 </div>
             `;
 
@@ -109,7 +111,7 @@ class CreadorPersonaje {
     crearPersonaje() {
         try {
             this.nombre = document.getElementById('nombre').value;
-            this.armaBasica = document.getElementById('arma').value;
+            const armaSeleccionada = document.getElementById('arma').value;
 
             if (this.nombre && this.estadisticas.puntosDisponibles === 0) {
                 jugador = new Personaje(
@@ -119,8 +121,21 @@ class CreadorPersonaje {
                     this.estadisticas.defensa,
                     20
                 );
-                jugador.equiparArma(this.armaBasica);
-                mostrarLobby(); // Asegúrate de que esto redirija al lobby
+
+                // Equipar el arma seleccionada
+                const armasDisponibles = {
+                    Espada: { nombre: "Espada", ataque: 5 },
+                    Arco: { nombre: "Arco", ataque: 7 },
+                    Hacha: { nombre: "Hacha", ataque: 6 }
+                };
+
+                if (armasDisponibles[armaSeleccionada]) {
+                    jugador.equiparArma(armasDisponibles[armaSeleccionada]);
+                } else {
+                    alert("Arma no disponible.");
+                }
+
+                mostrarLobby(); // Redirige al lobby después de crear el personaje
             } else {
                 alert("Debes distribuir todos los puntos disponibles y proporcionar un nombre.");
             }

@@ -1,13 +1,13 @@
 class Tienda {
     constructor() {
         this.articulos = [
-            { nombre: "⚔️ Espada de Madera", ataque: 5, precio: 10 },
-            { nombre: "👢 Zapatilla de Madre", ataque: 7, precio: 15 },
-            { nombre: "🏹 Arco de luz", ataque: 12, precio: 30 },
-            { nombre: "❤️ Poción de Curación", curacion: 20, precio: 10 },
-            { nombre: "💪 Marmita de Obélix", fuerza: 5, precio: 15 },
-            { nombre: "🛡️ Escudo de Bronce", defensa: 3, precio: 20 },
-            { nombre: "👕 Armadura de Cuero", defensa: 5, precio: 25 }
+            { nombre: "⚔️ Espada de Madera", ataque: 5, precio: 10, icono: "espada-madera.png" },
+            { nombre: "👢 Zapatilla de Madre", ataque: 7, precio: 15, icono: "zapatilla.png" },
+            { nombre: "🏹 Arco de luz", ataque: 12, precio: 30, icono: "arco.png" },
+            { nombre: "❤️ Poción de Curación", curacion: 20, precio: 10, icono: "pocion.png" },
+            { nombre: "💪 Marmita de Obélix", fuerza: 5, precio: 15, icono: "marmita.png" },
+            { nombre: "🛡️ Escudo de Bronce", defensa: 3, precio: 20, icono: "escudo.png" },
+            { nombre: "👕 Armadura de Cuero", defensa: 5, precio: 25, icono: "armadura.png" }
         ];
     }
 
@@ -18,7 +18,9 @@ class Tienda {
                     <h1>🛍️ Tienda 🛍️</h1>
                     <p class="info">Dinero: <span id="dinero">${jugador.dinero}</span> monedas</p>
                     <div id="listaTienda" class="tienda-items"></div>
-                    <button class="btn volver" onclick="mostrarLobby()">Volver</button>
+                    <button class="btn volver" onclick="mostrarLobby()">
+                        <img src="iconos/volver.png" alt="Volver" width="20"> Volver
+                    </button>
                 </div>
             `;
             let listaTienda = document.getElementById("listaTienda");
@@ -35,7 +37,10 @@ class Tienda {
                 } else if (articulo.defensa) {
                     descripcion = ` (+${articulo.defensa} DEF)`;
                 }
-                boton.innerText = `${articulo.nombre}${descripcion} - ${articulo.precio} monedas`;
+                boton.innerHTML = `
+                    <img src="iconos/${articulo.icono}" alt="${articulo.nombre}" width="20">
+                    ${articulo.nombre}${descripcion} - ${articulo.precio} monedas
+                `;
                 boton.onclick = () => this.comprarArticulo(articulo);
                 listaTienda.appendChild(boton);
                 listaTienda.appendChild(document.createElement("br"));

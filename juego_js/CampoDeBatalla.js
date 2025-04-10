@@ -28,13 +28,25 @@ function mostrarCampoDeBatalla(enemigo) {
                     <p>Recompensa: ${enemigo.recompensa} monedas</p>
                 </div>
                 <div class="acciones-combate">
-                    <button class="btn-accion" onclick="realizarAccion('atacar')">Atacar</button>
-                    <button class="btn-accion" onclick="realizarAccion('defender')">Defender</button>
-                    <button class="btn-accion" onclick="realizarAccion('huir')">Huir</button>
-                    <button class="btn-accion" onclick="realizarAccion('Curación')">Curación</button>
-                    <button class="btn-accion" onclick="realizarAccion('Ataque Fuerte')">Ataque Fuerte</button>
+                    <button class="btn-accion" onclick="realizarAccion('atacar')">
+                        <img src="iconos/atacar.png" alt="Atacar" width="20"> Atacar
+                    </button>
+                    <button class="btn-accion" onclick="realizarAccion('defender')">
+                        <img src="iconos/defender.png" alt="Defender" width="20"> Defender
+                    </button>
+                    <button class="btn-accion" onclick="realizarAccion('huir')">
+                        <img src="iconos/huir.png" alt="Huir" width="20"> Huir
+                    </button>
+                    <button class="btn-accion" onclick="realizarAccion('Curación')">
+                        <img src="iconos/curacion.png" alt="Curación" width="20"> Curación
+                    </button>
+                    <button class="btn-accion" onclick="realizarAccion('Ataque Fuerte')">
+                        <img src="iconos/ataque-fuerte.png" alt="Ataque Fuerte" width="20"> Ataque Fuerte
+                    </button>
                     ${jugador.inventario.map((item, index) => `
-                        <button class="btn-accion" onclick="realizarAccion('usarObjeto_${index}')">Usar ${item.nombre}</button>
+                        <button class="btn-accion" onclick="realizarAccion('usarObjeto_${index}')">
+                            <img src="iconos/${item.nombre.toLowerCase().replace(/ /g, '-')}.png" alt="${item.nombre}" width="20"> Usar ${item.nombre}
+                        </button>
                     `).join('')}
                 </div>
                 <div class="explicacion">
