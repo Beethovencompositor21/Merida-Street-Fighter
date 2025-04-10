@@ -1,3 +1,4 @@
+// Función para mostrar el lobby del juego
 function mostrarLobby() {
     try {
         const nivelSiguiente = jugador.nivel * 100;

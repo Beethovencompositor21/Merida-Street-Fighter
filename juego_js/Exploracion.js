@@ -6,6 +6,7 @@ class Zona {
     }
 }
 
+// Definir las zonas disponibles con sus enemigos
 const zonas = [
     new Zona("🌳 Emeritus Arboledus", "Un bosque lleno de criaturas mágicas y peligros desconocidos.", enemigosDisponibles),
     new Zona("🌑 Cueva Oscura", "Una cueva llena de trampas y enemigos poderosos.", enemigosDisponibles),
@@ -15,6 +16,7 @@ const zonas = [
     new Zona("🏰 Castillo Abandonado", "Un castillo antiguo y abandonado, lleno de secretos y peligros.", enemigosDisponibles)
 ];
 
+// Función para explorar una zona
 function explorarZona(zona) {
     alert(`Estás explorando el ${zona.nombre}. ${zona.descripcion}`);
     const enemigo = zona.enemigos[Math.floor(Math.random() * zona.enemigos.length)];
@@ -22,6 +24,7 @@ function explorarZona(zona) {
     iniciarCombate(enemigo, zona);
 }
 
+// Función para mostrar el mapa y permitir la selección de una zona
 function mostrarMapa() {
     let mensaje = "Elige una zona para explorar:\n";
     zonas.forEach((zona, index) => {

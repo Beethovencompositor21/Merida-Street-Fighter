@@ -1,3 +1,4 @@
+// Función para mostrar el menú principal
 function mostrarMenuPrincipal() {
     try {
         document.body.innerHTML = `
@@ -11,6 +12,9 @@ function mostrarMenuPrincipal() {
             <button class="btn btn-crear-personaje" onclick="creadorPersonaje.mostrarCreador()">
                 <img src="iconos/crear.png" alt="Crear Personaje" width="20"> Crear Personaje
             </button>
+            <button class="btn btn-manual" onclick="mostrarManual()">
+                <img src="iconos/manual.png" alt="Manual" width="20"> Ver Manual
+            </button>
             <a href="https://beethovencompositor21.github.io/Merida-Street-Fighter/" target="_blank">
                 <button class="btn btn-repositorio">
                     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" class="icono-github">
@@ -23,6 +27,7 @@ function mostrarMenuPrincipal() {
     }
 }
 
+// Función para continuar una partida guardada
 function continuarPartida() {
     try {
         const personajeCargado = cargarPartida();
@@ -38,6 +43,7 @@ function continuarPartida() {
     }
 }
 
+// Función para eliminar los datos guardados
 function eliminarDatos() {
     try {
         localStorage.removeItem("partida");
@@ -47,4 +53,9 @@ function eliminarDatos() {
     } catch (error) {
         console.error("Error al eliminar los datos:", error);
     }
+}
+
+// Función para mostrar el manual del juego
+function mostrarManual() {
+    window.open('manual_usuario.pdf', '_blank');
 }

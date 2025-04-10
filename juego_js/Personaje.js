@@ -17,6 +17,7 @@ class Personaje {
         this.capacidadInventario = 10; // Límite de capacidad del inventario
     }
 
+    // Método para atacar a un enemigo
     atacar(enemigo) {
         try {
             let danioBase = this.ataque;
@@ -32,6 +33,7 @@ class Personaje {
         }
     }
 
+    // Método para realizar un ataque fuerte
     ataqueFuerte(enemigo) {
         try {
             let danioBase = this.ataque * 1.5;
@@ -55,6 +57,7 @@ class Personaje {
         }
     }
 
+    // Método para defenderse
     defender() {
         try {
             this.defensa += 5;
@@ -67,6 +70,7 @@ class Personaje {
         }
     }
 
+    // Método para usar un objeto del inventario
     usarObjeto(objeto) {
         try {
             if (objeto.nombre.includes("Poción de Curación")) {
@@ -90,6 +94,7 @@ class Personaje {
         }
     }
 
+    // Método para curar al personaje
     curar() {
         try {
             this.vida += 20;
@@ -103,6 +108,7 @@ class Personaje {
         }
     }
 
+    // Método para recibir daño
     recibirDanio(danio) {
         try {
             if (this.escudoTemporal > 0) {
@@ -123,6 +129,7 @@ class Personaje {
         }
     }
 
+    // Método para subir de nivel
     subirNivel() {
         try {
             this.nivel++;
@@ -137,6 +144,7 @@ class Personaje {
         }
     }
 
+    // Método para ganar experiencia
     ganarExperiencia(cantidad) {
         try {
             this.experiencia += cantidad;
@@ -150,6 +158,7 @@ class Personaje {
         }
     }
 
+    // Método para agregar un objeto al inventario
     agregarAlInventario(objeto) {
         try {
             if (this.inventario.length < this.capacidadInventario) {
@@ -163,6 +172,7 @@ class Personaje {
         }
     }
 
+    // Método para equipar un arma
     equiparArma(arma) {
         try {
             if (arma && arma.ataque !== undefined) {
@@ -182,6 +192,7 @@ class Personaje {
         }
     }
 
+    // Método para equipar una armadura
     equiparArmadura(armadura) {
         try {
             if (armadura && armadura.defensa !== undefined) {
@@ -196,6 +207,7 @@ class Personaje {
         }
     }
 
+    // Método para realizar un contraataque
     contraataque(enemigo) {
         try {
             if (this.contraataque) {

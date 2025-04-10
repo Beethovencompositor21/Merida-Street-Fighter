@@ -9,6 +9,7 @@ class Enemigo {
         this.habilidadEspecial = habilidadEspecial;
     }
 
+    // Método para atacar al personaje
     atacar(personaje) {
         try {
             let danio = Math.max(1, this.ataque - personaje.defensa);
@@ -20,6 +21,7 @@ class Enemigo {
         }
     }
 
+    // Método para usar la habilidad especial del enemigo
     usarHabilidadEspecial(personaje) {
         try {
             if (this.habilidadEspecial) {
@@ -31,6 +33,7 @@ class Enemigo {
     }
 }
 
+// Definir los enemigos disponibles con sus habilidades especiales
 const enemigosDisponibles = [
     new Enemigo("🧟 Goblin", 50, 10, 3, 15, (personaje) => {
         personaje.vida -= 15;

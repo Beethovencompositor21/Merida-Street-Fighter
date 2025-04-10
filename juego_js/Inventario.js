@@ -1,8 +1,9 @@
+// Función para mostrar el inventario del jugador
 function mostrarInventario() {
     try {
         document.body.innerHTML = `
             <h1>Inventario</h1>
-            <div id="listaInventario"></div>
+            <div id="listaInventario" class="inventario-container"></div>
             <button class="btn" onclick="mostrarLobby()">
                 <img src="iconos/volver.png" alt="Volver" width="20"> Volver
             </button>

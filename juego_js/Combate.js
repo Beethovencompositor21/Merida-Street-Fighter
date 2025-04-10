@@ -4,6 +4,7 @@ class Combate {
         this.enemigo = enemigo;
     }
 
+    // Método para manejar el turno del jugador
     turnoJugador() {
         try {
             return this.personaje.atacar(this.enemigo);
@@ -12,6 +13,7 @@ class Combate {
         }
     }
 
+    // Método para manejar el turno del enemigo
     turnoEnemigo() {
         try {
             return this.enemigo.atacar(this.personaje);
@@ -20,10 +22,12 @@ class Combate {
         }
     }
 
+    // Método para verificar si el combate ha terminado
     haTerminado() {
         return this.personaje.vida <= 0 || this.enemigo.vida <= 0;
     }
 
+    // Método para manejar eventos aleatorios durante el combate
     eventoAleatorio() {
         const eventos = [
             () => this.aplicarEvento("🌧️ ¡Una lluvia repentina reduce la visibilidad!", -2, 2),
@@ -42,6 +46,7 @@ class Combate {
         }
     }
 
+    // Método para aplicar un evento aleatorio
     aplicarEvento(mensaje, modificadorAtaque, modificadorDefensa) {
         console.log(mensaje);
         alert(mensaje);
@@ -50,9 +55,11 @@ class Combate {
     }
 }
 
+// Variables para manejar el enemigo actual y la zona actual
 let enemigoActual;
 let zonaActual;
 
+// Función para iniciar el combate
 function iniciarCombate(enemigo, zona) {
     try {
         if (!zona || !zona.enemigos) {
@@ -66,6 +73,7 @@ function iniciarCombate(enemigo, zona) {
     }
 }
 
+// Función para realizar una acción durante el combate
 function realizarAccion(accion) {
     try {
         if (jugador.descanso) {
@@ -115,6 +123,7 @@ function realizarAccion(accion) {
     }
 }
 
+// Función para ejecutar la acción de ataque
 function ejecutarAccionDeAtaque() {
     alert(jugador.atacar(enemigoActual));
     document.body.classList.add('shake');
@@ -134,6 +143,7 @@ function ejecutarAccionDeAtaque() {
     }, 500);
 }
 
+// Función para ejecutar la acción de ataque fuerte
 function ejecutarAccionDeAtaqueFuerte() {
     alert(jugador.ataqueFuerte(enemigoActual));
     document.body.classList.add('shake');
@@ -157,6 +167,7 @@ function ejecutarAccionDeAtaqueFuerte() {
     }, 500);
 }
 
+// Función para usar un objeto del inventario
 function usarObjeto(accion) {
     const index = parseInt(accion.split('_')[1]);
     const objeto = jugador.inventario[index];
@@ -173,6 +184,7 @@ function usarObjeto(accion) {
     mostrarCampoDeBatalla(enemigoActual);
 }
 
+// Función para finalizar el combate
 function finalizarCombate() {
     const experienciaGanada = 20;
     jugador.ganarExperiencia(experienciaGanada);
@@ -188,6 +200,7 @@ function finalizarCombate() {
     mostrarLobby();
 }
 
+// Función para actualizar la vida del jugador y el enemigo
 function actualizarVida() {
     try {
         document.getElementById('vida-jugador').style.width = `${jugador.vida / jugador.vidaMaxima * 100}%`;
@@ -200,6 +213,7 @@ function actualizarVida() {
     }
 }
 
+// Función para actualizar la experiencia del jugador
 function actualizarExperiencia() {
     try {
         const nivelSiguiente = jugador.nivel * 100;

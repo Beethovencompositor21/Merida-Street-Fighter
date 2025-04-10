@@ -13,6 +13,7 @@ class CreadorPersonaje {
         this.armaBasica = null;
     }
 
+    // Método para mostrar el creador de personajes
     mostrarCreador() {
         try {
             document.body.innerHTML = `
@@ -75,6 +76,7 @@ class CreadorPersonaje {
                 </div>
             `;
 
+            // Añadir eventos para manejar cambios en la apariencia, color de cabello y tipo de armadura
             document.getElementById('apariencia').addEventListener('change', () => {
                 this.apariencia = document.getElementById('apariencia').value;
                 this.actualizarImagenPersonaje();
@@ -94,6 +96,7 @@ class CreadorPersonaje {
         }
     }
 
+    // Método para modificar las estadísticas del personaje
     modificarEstadistica(estadistica, valor) {
         try {
             if (this.estadisticas.puntosDisponibles >= valor) {
@@ -108,6 +111,7 @@ class CreadorPersonaje {
         }
     }
 
+    // Método para crear el personaje
     crearPersonaje() {
         try {
             this.nombre = document.getElementById('nombre').value;
@@ -144,6 +148,7 @@ class CreadorPersonaje {
         }
     }
 
+    // Método para asignar las características iniciales del personaje según su apariencia
     asignarCaracteristicasIniciales() {
         try {
             switch (this.apariencia) {
@@ -170,18 +175,19 @@ class CreadorPersonaje {
         }
     }
 
+    // Método para actualizar la imagen del personaje según su apariencia
     actualizarImagenPersonaje() {
         try {
             const imagenPersonaje = document.getElementById('imagenPersonaje');
             switch (this.apariencia) {
                 case 'Humano':
-                    imagenPersonaje.src = 'Imagenes/humano.png';
+                    imagenPersonaje.src = 'imagenes/humano.png';
                     break;
                 case 'Elfo':
-                    imagenPersonaje.src = 'Imagenes/elfo.png';
+                    imagenPersonaje.src = 'imagenes/elfo.png';
                     break;
                 case 'Enano':
-                    imagenPersonaje.src = 'Imagenes/enano.png';
+                    imagenPersonaje.src = 'imagenes/enano.png';
                     break;
                 default:
                     break;
@@ -191,6 +197,7 @@ class CreadorPersonaje {
         }
     }
 
+    // Método para actualizar las estadísticas del personaje en la interfaz
     actualizarEstadisticas() {
         try {
             document.querySelector('label[for="estadisticas"]').innerText = `Estadísticas (Puntos disponibles: ${this.estadisticas.puntosDisponibles}) (tras elegir personaje)`;
@@ -203,4 +210,5 @@ class CreadorPersonaje {
     }
 }
 
+// Crear una instancia del CreadorPersonaje
 const creadorPersonaje = new CreadorPersonaje();

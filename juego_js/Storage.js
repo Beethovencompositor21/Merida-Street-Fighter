@@ -1,7 +1,9 @@
+// Función para guardar la partida
 function guardarPartida(jugador) {
     try {
         if (jugador) {
             console.log("💾 Guardando partida automáticamente...");
+            // Crear un objeto con los datos del jugador
             const datos = {
                 nombre: jugador.nombre,
                 vida: jugador.vida,
@@ -14,6 +16,7 @@ function guardarPartida(jugador) {
                 armaEquipada: jugador.armaEquipada,
                 armaduraEquipada: jugador.armaduraEquipada
             };
+            // Guardar los datos en el almacenamiento local
             localStorage.setItem("partida", JSON.stringify(datos));
             console.log("✅ Partida guardada con éxito.");
         } else {
@@ -24,12 +27,15 @@ function guardarPartida(jugador) {
     }
 }
 
+// Función para cargar la partida
 function cargarPartida() {
     try {
         const data = localStorage.getItem("partida");
         if (data) {
             console.log("📂 Cargando partida...");
+            // Convertir los datos JSON en un objeto
             const datos = JSON.parse(data);
+            // Crear un nuevo objeto Personaje con los datos cargados
             const personajeCargado = new Personaje(
                 datos.nombre,
                 datos.vida,
