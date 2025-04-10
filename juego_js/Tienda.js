@@ -1,6 +1,5 @@
 class Tienda {
     constructor() {
-        // Definir los artículos disponibles en la tienda
         this.articulos = [
             { nombre: "⚔️ Espada de Madera", ataque: 5, precio: 10, icono: "iconos/espada-madera.png" },
             { nombre: "👢 Zapatilla de Madre", ataque: 7, precio: 15, icono: "iconos/zapatilla.png" },
@@ -12,7 +11,6 @@ class Tienda {
         ];
     }
 
-    // Método para mostrar la tienda
     mostrarTienda() {
         try {
             document.body.innerHTML = `
@@ -26,7 +24,6 @@ class Tienda {
                 </div>
             `;
             let listaTienda = document.getElementById("listaTienda");
-            // Recorrer los artículos y crear botones para cada uno
             this.articulos.forEach((articulo) => {
                 let boton = document.createElement("button");
                 boton.className = "btn compra";
@@ -53,7 +50,6 @@ class Tienda {
         }
     }
 
-    // Método para comprar un artículo
     comprarArticulo(articulo) {
         try {
             if (jugador.dinero >= articulo.precio) {
@@ -72,5 +68,4 @@ class Tienda {
     }
 }
 
-// Crear una instancia de la tienda
 const tienda = new Tienda();

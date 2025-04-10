@@ -1,7 +1,7 @@
 function mostrarCampoDeBatalla(enemigo) {
     try {
+        // Actualizar el contenido del cuerpo del documento con la interfaz del campo de batalla
         document.body.innerHTML = `
-            <h1>Combate</h1>
             <div class="combate-container fade-in">
                 <div class="personaje">
                     <h2>${jugador.nombre}</h2>

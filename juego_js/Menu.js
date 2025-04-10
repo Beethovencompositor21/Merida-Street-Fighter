@@ -57,5 +57,5 @@ function eliminarDatos() {
 
 // Función para mostrar el manual del juego
 function mostrarManual() {
-    window.open('manual_usuario.pdf', '_blank');
+    window.open('ManualUsuario.pdf', '_blank');
 }
