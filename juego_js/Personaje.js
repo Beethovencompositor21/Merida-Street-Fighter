@@ -12,8 +12,9 @@ class Personaje {
         this.armaEquipada = null;
         this.armaduraEquipada = null;
         this.descanso = false;
-        this.escudoTemporal = 0; // Nuevo atributo para el escudo temporal
-        this.contraataque = false; // Nuevo atributo para el contraataque
+        this.escudoTemporal = 0;
+        this.contraataque = false;
+        this.capacidadInventario = 10; // Límite de capacidad del inventario
     }
 
     atacar(enemigo) {
@@ -151,8 +152,12 @@ class Personaje {
 
     agregarAlInventario(objeto) {
         try {
-            this.inventario.push(objeto);
-            console.log(`📦 ${objeto.nombre} añadido al inventario.`);
+            if (this.inventario.length < this.capacidadInventario) {
+                this.inventario.push(objeto);
+                console.log(`📦 ${objeto.nombre} añadido al inventario.`);
+            } else {
+                alert("Inventario lleno. No se puede añadir más objetos.");
+            }
         } catch (error) {
             console.error("Error en el método agregarAlInventario del personaje:", error);
         }
@@ -165,7 +170,13 @@ class Personaje {
                 Arco: { nombre: "Arco", ataque: 7 },
                 Hacha: { nombre: "Hacha", ataque: 6 }
             };
+
             if (armasDisponibles[nombreArma]) {
+                // Si hay un arma equipada, devuélvela al inventario
+                if (this.armaEquipada) {
+                    this.agregarAlInventario(this.armaEquipada);
+                }
+
                 this.armaEquipada = armasDisponibles[nombreArma];
                 console.log(`🔪 ${this.nombre} ha equipado ${this.armaEquipada.nombre}.`);
                 alert(`Has equipado ${this.armaEquipada.nombre}.`);

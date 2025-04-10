@@ -2,21 +2,12 @@ function mostrarMenuPrincipal() {
     try {
         document.body.innerHTML = `
             <h1>🎮 Merida Street Fighter</h1>
-            <button onclick="nuevaPartida()">Nueva Partida</button>
             <button onclick="continuarPartida()">Cargar Partida</button>
             <button onclick="eliminarDatos()">Eliminar Datos</button>
             <button onclick="creadorPersonaje.mostrarCreador()">Crear Personaje</button>
         `;
     } catch (error) {
         console.error("Error al mostrar el menú principal:", error);
-    }
-}
-
-function nuevaPartida() {
-    try {
-        creadorPersonaje.mostrarCreador();
-    } catch (error) {
-        console.error("Error al iniciar una nueva partida:", error);
     }
 }
 

@@ -120,7 +120,7 @@ class CreadorPersonaje {
                     20
                 );
                 jugador.equiparArma(this.armaBasica);
-                mostrarLobby();
+                mostrarLobby(); // Asegúrate de que esto redirija al lobby
             } else {
                 alert("Debes distribuir todos los puntos disponibles y proporcionar un nombre.");
             }

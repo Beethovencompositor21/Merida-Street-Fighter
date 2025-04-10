@@ -23,9 +23,15 @@
 <body>
     <div id="pantalla-principal" class="container">
         <h1>Merida Street Fighter</h1>
-        <button class="btn btn-nueva-partida" onclick="nuevaPartida()">Nueva Partida</button>
         <button class="btn btn-cargar-partida" onclick="continuarPartida()">Cargar Partida</button>
         <button class="btn btn-eliminar-datos" onclick="eliminarDatos()">Eliminar Datos</button>
+        <button class="btn btn-crear-personaje" onclick="creadorPersonaje.mostrarCreador()">Crear Personaje</button>
+        <a href="https://beethovencompositor21.github.io/Merida-Street-Fighter/" target="_blank">
+            <button class="btn btn-repositorio">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" class="icono-github">
+                Repositorio
+            </button>
+        </a>
     </div>
     <audio id="musica-fondo" loop>
         <source src="lobby.mp3" type="audio/mp3">
