@@ -19,7 +19,7 @@ function mostrarMenuPrincipal() {
             <button class="btn btn-manual" onclick="mostrarManual()">
                 <img src="iconos/manual.png" alt="Manual" width="20"> Ver Manual
             </button>
-            <a href="https://beethovencompositor21.github.io/Merida-Street-Fighter/" target="_blank">
+            <a href="https://github.com/Beethovencompositor21/Merida-Street-Fighter.git" target="_blank">
                 <button class="btn btn-repositorio">
                     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" class="icono-github">
                     Repositorio
