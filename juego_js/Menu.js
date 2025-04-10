@@ -1,6 +1,10 @@
 // Función para mostrar el menú principal
 function mostrarMenuPrincipal() {
     try {
+        document.body.style.backgroundImage = "url('fondo.jpg')";
+        document.body.style.backgroundSize = "cover";
+        document.body.style.backgroundPosition = "center";
+
         document.body.innerHTML = `
             <h1>🎮 Merida Street Fighter</h1>
             <button class="btn btn-cargar-partida" onclick="continuarPartida()">

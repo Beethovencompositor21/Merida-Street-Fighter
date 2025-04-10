@@ -3,7 +3,6 @@
 /* Estilo global para el cuerpo del documento */
 body {
     font-family: 'Cinzel', serif;
-    background: #2c221f;
     color: #d2b48c;
     text-align: center;
     margin: 0;
@@ -13,7 +12,6 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url('https://www.transparenttextures.com/patterns/dark-denim-3.png');
 }
 
 /* Estilo para el contenedor principal */
@@ -33,7 +31,7 @@ body {
 
 /* Estilo para los títulos */
 h1 {
-    color: #d2b48c;
+    color: hsl(0, 0%, 100%);
     font-size: 2em;
     margin-bottom: 20px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
