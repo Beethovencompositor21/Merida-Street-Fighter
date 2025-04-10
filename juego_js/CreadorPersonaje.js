@@ -175,13 +175,13 @@ class CreadorPersonaje {
             const imagenPersonaje = document.getElementById('imagenPersonaje');
             switch (this.apariencia) {
                 case 'Humano':
-                    imagenPersonaje.src = 'imagenes/humano.png';
+                    imagenPersonaje.src = 'Imagenes/humano.png';
                     break;
                 case 'Elfo':
-                    imagenPersonaje.src = 'imagenes/elfo.png';
+                    imagenPersonaje.src = 'Imagenes/elfo.png';
                     break;
                 case 'Enano':
-                    imagenPersonaje.src = 'imagenes/enano.png';
+                    imagenPersonaje.src = 'Imagenes/enano.png';
                     break;
                 default:
                     break;
